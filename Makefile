@@ -16,7 +16,7 @@ all: $(NAME)
 .PHONY: all clean fclean re bonus
 
 CC = cc
-CFLAGS += -Wall -Wextra -Werror -I$I
+CFLAGS += -Wall -Wextra -Werror -pthread -I$I
 LDFLAGS += 
 
 ######################
