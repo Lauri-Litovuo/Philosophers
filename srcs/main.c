@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:04:26 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/03 15:50:02 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:31:27 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,58 @@ static long long int	philo_count(char *number_of_philos)
 	return (num);
 }
 
+void	*routine()
+{
+	printf("hey\n");
+	return (NULL);
+}
+
+pthread_t	*create_threads(int num_of_philos)
+{
+	int			i;
+	int			rv;
+	pthread_t	*thread;
+
+	i = 0;
+	thread = (pthread_t *) malloc (num_of_philos * sizeof(pthread_t));
+	if (!thread)
+		return (NULL);
+	while (i < num_of_philos)
+	{
+		rv = pthread_create(&thread[i], NULL, &routine, NULL);
+		if (rv != 0)
+			return (NULL);
+		i++;
+	}
+	i = 0;
+	while (i < num_of_philos)
+	{
+		rv = pthread_join(thread[i], NULL);
+		if (rv != 0)
+			return (NULL);
+	}
+	return (thread);
+}
+
 int	main(int ac, char **av)
 {
 	pthread_t	*thread;
-	long long int			num_of_philos;
+	int			num_of_philos;
 
 	if (ac < 4)
 		return (0);
-	num_of_philos = philo_count(av[1]);
+	num_of_philos = (int)philo_count(av[1]);
 	if (num_of_philos < 2)
 		return (1);
-	thread = (pthread_t *) malloc ()
+	printf("%d\n", num_of_philos);
+	thread = create_threads(num_of_philos);
+	if (thread == NULL)
+		return (2);
+	int i = 0;
+	for(i=0;i<num_of_philos; i++)
+	{
+		printf("id: %d\n", (int)thread[i]);
+	}
+	free (thread);
 	return (0);
 }
