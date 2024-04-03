@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:04:26 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/03 16:31:27 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:58:51 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ pthread_t	*create_threads(int num_of_philos)
 			return (NULL);
 		i++;
 	}
+	return (thread);
+}
+void	join_threads(int num_of_philos, pthread_t *thread)
+{
+	int i;
+	int rv;
+
 	i = 0;
 	while (i < num_of_philos)
 	{
@@ -80,11 +87,7 @@ int	main(int ac, char **av)
 	thread = create_threads(num_of_philos);
 	if (thread == NULL)
 		return (2);
-	int i = 0;
-	for(i=0;i<num_of_philos; i++)
-	{
-		printf("id: %d\n", (int)thread[i]);
-	}
+	join_threads(num_of_philos, thread);
 	free (thread);
 	return (0);
 }
