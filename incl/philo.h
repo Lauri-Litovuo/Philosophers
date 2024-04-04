@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:59:19 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/04 15:08:55 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:12:47 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_state
 	SLEEP = 2,
 	THINK = 3,
 	FORK = 4,
-	DEAD = 5;
+	DEAD = 5
 }	t_state;
 
 typedef enum e_input_error
