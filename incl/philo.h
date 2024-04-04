@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:59:19 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/04 09:59:19 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:55:59 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <pthread.h>
-# include <unistd.h> //if write
+# include <unistd.h>
 
 typedef enum e_state
 {
@@ -26,14 +26,16 @@ typedef enum e_state
 	THINK = 3
 }	t_state;
 
-typedef struct s_data
+typedef enum e_input_error
 {
-	unsigned int	philo_count;
-	unsigned int	sleep_time;
-	unsigned int	eating_time;
-	unsigned int	die_time;
-	unsigned int	eat_count;
-	int				flag;
-}	t_data;
+	ZERO = -1,
+	NOTDIGIT = -2,
+	COUNT = -3
+}	t_input_error;
+
+int		*validate_and_alloc_input(int ac, char **av);
+void	input_error_msg(int errcode);
+
+
 
 #endif
