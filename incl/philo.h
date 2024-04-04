@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:59:19 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/04 12:55:59 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:08:55 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ typedef enum e_state
 {
 	EAT = 1,
 	SLEEP = 2,
-	THINK = 3
+	THINK = 3,
+	FORK = 4,
+	DEAD = 5;
 }	t_state;
 
 typedef enum e_input_error
@@ -32,6 +34,12 @@ typedef enum e_input_error
 	NOTDIGIT = -2,
 	COUNT = -3
 }	t_input_error;
+
+typedef struct s_times
+{
+	time_t		sec;
+	suseconds_t	usec;
+}	t_times;
 
 int		*validate_and_alloc_input(int ac, char **av);
 void	input_error_msg(int errcode);
