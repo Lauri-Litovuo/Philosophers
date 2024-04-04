@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:37:15 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/04 15:09:19 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:15:13 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_sleep(int time_in_ms)
 
 	gettimeofday(&start, 0);
 	elapsed_time = 0;
-	time_in_ms /= 1000;
+	time_in_ms *= 1000;
 	while (elapsed_time < time_in_ms)
 	{
 		gettimeofday(&end, 0);

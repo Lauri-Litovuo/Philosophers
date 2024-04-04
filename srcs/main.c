@@ -6,32 +6,11 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:04:26 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/03 17:58:51 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:13:29 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
-
-//check max_values
-static long long int	philo_count(char *number_of_philos)
-{
-	long long int	num;
-
-	num = 0;
-	if (!number_of_philos || number_of_philos[0] == '\0')
-		return (-1);
-	while (*number_of_philos != '\0')
-	{
-		if (*number_of_philos >= '0' && *number_of_philos <= '9')
-		{
-			num = num * 10 + *number_of_philos - '0';
-		}
-		else
-			return (-1);
-		number_of_philos++;
-	}
-	return (num);
-}
 
 void	*routine()
 {
@@ -58,6 +37,7 @@ pthread_t	*create_threads(int num_of_philos)
 	}
 	return (thread);
 }
+
 void	join_threads(int num_of_philos, pthread_t *thread)
 {
 	int i;
@@ -76,18 +56,22 @@ void	join_threads(int num_of_philos, pthread_t *thread)
 int	main(int ac, char **av)
 {
 	pthread_t	*thread;
-	int			num_of_philos;
+	int			*data;
 
-	if (ac < 4)
-		return (0);
-	num_of_philos = (int)philo_count(av[1]);
-	if (num_of_philos < 2)
+	if (ac < 5 || ac > 6)
+	{
+		input_error_msg(COUNT);
+		return (COUNT);
+	}
+	data = validate_and_alloc_input(ac, av);
+	if (!data)
 		return (1);
-	printf("%d\n", num_of_philos);
 	thread = create_threads(num_of_philos);
 	if (thread == NULL)
 		return (2);
 	join_threads(num_of_philos, thread);
 	free (thread);
+	if (data)
+		free(data);
 	return (0);
 }
