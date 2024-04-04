@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:59:19 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/02 14:52:50 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/04/04 09:59:19 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ typedef enum e_state
 	THINK = 3
 }	t_state;
 
-
+typedef struct s_data
+{
+	unsigned int	philo_count;
+	unsigned int	sleep_time;
+	unsigned int	eating_time;
+	unsigned int	die_time;
+	unsigned int	eat_count;
+	int				flag;
+}	t_data;
 
 #endif
