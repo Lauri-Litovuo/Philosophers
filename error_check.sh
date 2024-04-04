@@ -6,7 +6,7 @@
 #    By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 15:26:00 by llitovuo          #+#    #+#              #
-#    Updated: 2024/04/03 15:49:32 by llitovuo         ###   ########.fr        #
+#    Updated: 2024/04/04 14:08:32 by llitovuo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ input_errors()
 	printf "${GB}Testing:${RC} ./philo $1 $2 $3 $4 $5\n"
 	#cat $1
 	#printf "\n\n"
-	printf "${BB}Output:\n${RC}"
+	printf "${BB}Output: ${RC}"
 	./philo "$1" "$2" "$3" "$4" "$5"
 	printf "${RC}${RB}Exit Code: ${RC}$?\n"
 	#leaks --atExit -- ./philo "$1"
@@ -52,30 +52,67 @@ a7="-2147483648"
 a8="asdg"
 a9="\0	!@#&SF*)"
 aok="5"
-
-bok="30"
-
-
-cok="30"
-
-dok="30"
-
-fok="5"
+empty=""
 
 
 printf "\n${P}${FLL}****************${P}${FLL}${RC}\n"
 printf "${P}${FLL}${RC}${RB}Philo errors${P}${FLL}${RC}\n"
 printf "${P}${FLL}****************${P}${FLL}${RC}\n\n"
 
-input_errors ${a1} ${bok} ${cok} ${dok} ${fok}
-input_errors ${a2} ${bok} ${cok} ${dok} ${fok}
-input_errors ${a3} ${bok} ${cok} ${dok} ${fok}
-input_errors ${a4} ${bok} ${cok} ${dok} ${fok}
-input_errors ${a5} ${bok} ${cok} ${dok} ${fok}
-input_errors ${a6} ${bok} ${cok} ${dok} ${fok}
-input_errors ${a7} ${bok} ${cok} ${dok} ${fok}
-input_errors ${a8} ${bok} ${cok} ${dok} ${fok}
-input_errors ${a9} ${bok} ${cok} ${dok} ${fok}
-input_errors ${aok} ${bok} ${cok} ${dok} ${fok}
+./philo
+./philo 5
+./philo 5 5
+./philo 5 5 5
+./philo 5 5 5 5
+./philo 5 5 5 5 5 5 5
 
+input_errors ${a1} ${aok} ${aok} ${aok} ${aok}
+input_errors ${a2} ${aok} ${aok} ${aok} ${aok}
+input_errors ${a3} ${aok} ${aok} ${aok} ${aok}
+input_errors ${a4} ${aok} ${aok} ${aok} ${aok}
+input_errors ${a5} ${aok} ${aok} ${aok} ${aok}
+input_errors ${a6} ${aok} ${aok} ${aok} ${aok}
+input_errors ${a7} ${aok} ${aok} ${aok} ${aok}
+input_errors ${a8} ${aok} ${aok} ${aok} ${aok}
+input_errors ${a9} ${aok} ${aok} ${aok} ${aok}
 
+input_errors ${aok} ${a1} ${aok} ${aok} ${aok}
+input_errors ${aok} ${a2} ${aok} ${aok} ${aok}
+input_errors ${aok} ${a3} ${aok} ${aok} ${aok}
+input_errors ${aok} ${a4} ${aok} ${aok} ${aok}
+input_errors ${aok} ${a5} ${aok} ${aok} ${aok}
+input_errors ${aok} ${a6} ${aok} ${aok} ${aok}
+input_errors ${aok} ${a7} ${aok} ${aok} ${aok}
+input_errors ${aok} ${a8} ${aok} ${aok} ${aok}
+input_errors ${aok} ${a9} ${aok} ${aok} ${aok}
+input_errors ${aok} ${a1} ${aok} ${aok} ${aok}
+
+input_errors ${aok} ${aok} ${a1} ${aok} ${aok}
+input_errors ${aok} ${aok} ${a2} ${aok} ${aok}
+input_errors ${aok} ${aok} ${a3} ${aok} ${aok}
+input_errors ${aok} ${aok} ${a4} ${aok} ${aok}
+input_errors ${aok} ${aok} ${a5} ${aok} ${aok}
+input_errors ${aok} ${aok} ${a6} ${aok} ${aok}
+input_errors ${aok} ${aok} ${a7} ${aok} ${aok}
+input_errors ${aok} ${aok} ${a8} ${aok} ${aok}
+input_errors ${aok} ${aok} ${a9} ${aok} ${aok}
+
+input_errors ${aok} ${aok} ${aok} ${a1} ${aok}
+input_errors ${aok} ${aok} ${aok} ${a2} ${aok}
+input_errors ${aok} ${aok} ${aok} ${a3} ${aok}
+input_errors ${aok} ${aok} ${aok} ${a4} ${aok}
+input_errors ${aok} ${aok} ${aok} ${a5} ${aok}
+input_errors ${aok} ${aok} ${aok} ${a6} ${aok}
+input_errors ${aok} ${aok} ${aok} ${a7} ${aok}
+input_errors ${aok} ${aok} ${aok} ${a8} ${aok}
+input_errors ${aok} ${aok} ${aok} ${a9} ${aok}
+
+input_errors ${aok} ${aok} ${aok} ${aok} ${a1}
+input_errors ${aok} ${aok} ${aok} ${aok} ${a2}
+input_errors ${aok} ${aok} ${aok} ${aok} ${a3}
+input_errors ${aok} ${aok} ${aok} ${aok} ${a4}
+input_errors ${aok} ${aok} ${aok} ${aok} ${a5}
+input_errors ${aok} ${aok} ${aok} ${aok} ${a6}
+input_errors ${aok} ${aok} ${aok} ${aok} ${a7}
+input_errors ${aok} ${aok} ${aok} ${aok} ${a8}
+input_errors ${aok} ${aok} ${aok} ${aok} ${a9}
