@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_and_alloc_input.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 09:56:16 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/04 14:07:47 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/15 10:39:40 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	*validate_and_alloc_input(int ac, char **av)
 	data[i] = 0;
 	return (data);
 }
-
 
 static int	check_for_digits(int ac, char **av)
 {
@@ -93,7 +92,7 @@ static int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str && str[i] != '\0')
 	{
 		i++;
 	}
@@ -107,5 +106,3 @@ static int	ft_isdigit(int c)
 	else
 		return (0);
 }
-
-
