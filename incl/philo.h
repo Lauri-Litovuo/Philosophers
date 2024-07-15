@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:59:19 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/04 15:12:47 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:21:55 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,47 @@ typedef struct s_times
 	suseconds_t	usec;
 }	t_times;
 
+typedef struct s_philo
+{
+	pthread_t		thread;
+	int				id;
+	int				eating;
+	int				meals_eaten;
+	size_t			last_meal;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			starting_time;
+	int				philo_count;
+	int				max_meals;
+	int				*philo_dead;
+	pthread_mutex_t	fork_r;
+	pthread_mutex_t	*fork_l;
+	pthread_mutex_t	*w_lock;
+	pthread_mutex_t	*d_lock;
+	pthread_mutex_t	*e_lock;
+}	t_philo;
+
+typedef struct s_data
+{
+	int				dead_flag;
+	pthread_mutex_t	w_lock;
+	pthread_mutex_t	d_lock;
+	pthread_mutex_t	e_lock;
+	int				philo_count;
+	int				max_meals;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+}		t_data;
+
 int		*validate_and_alloc_input(int ac, char **av);
 void	input_error_msg(int errcode);
-
-
+void	init_data(t_data *data, int *nums);
+void	print_timestamp(int philo_num, int stampcode);
+void	ft_sleep(int time_in_ms);
+size_t	get_current_time(void);
+void 	init_philos(t_data *data, t_philo *philos);
+void	*monitor(void	*ptr);
 
 #endif
