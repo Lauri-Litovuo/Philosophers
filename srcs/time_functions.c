@@ -3,45 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   time_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:37:15 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/04/04 15:15:13 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:01:33 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
 
-void	ft_sleep(int time_in_ms)
+size_t	get_current_time(void)
 {
-	unsigned long	elapsed_time;
-	t_times			start;
-	t_times			end;
-
-	gettimeofday(&start, 0);
-	elapsed_time = 0;
-	time_in_ms *= 1000;
-	while (elapsed_time < time_in_ms)
-	{
-		gettimeofday(&end, 0);
-		elapsed_time = \
-		((end.sec * 1000000) + end.usec) - ((start.sec * 1000000) + start.usec);
-	}
+	struct timeval	time;
+	
+	if(gettimeofday(&time, 0) < 0)
+		write(2, "error: gettimeofday\n", 20);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	print_timestamp(int philo_num, int stampcode)
+void	ft_sleep(int time_in_ms)
 {
-	t_times	cur_time;
+	size_t	start;
 
-	gettimeofday(&cur_time, 0);
-	if (stampcode == FORK)
-		printf("%d %d has taken a fork\n", (cur_time.usec / 1000), philo_num);
-	if (stampcode == EAT)
-		printf("%d %d is eating\n", (cur_time.usec / 1000), philo_num);
-	if (stampcode == SLEEP)
-		printf("%d %d is sleeping\n", (cur_time.usec / 1000), philo_num);
-	if (stampcode == THINK)
-		printf("%d %d is thinking\n", (cur_time.usec / 1000), philo_num);
-	if (stampcode == DEAD)
-		printf("%d %d is thinking\n", (cur_time.usec / 1000), philo_num);
+	start = get_current_time();
+	while ((get_current_time() - start) < time_in_ms)
+	{
+		if (check_for_deaths() == 1)
+			break;
+		usleep(500);
+	}
+	return (0);
 }
