@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:43:58 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/15 12:31:28 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:29:01 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void	print_timestamp(int philo_num, int stampcode)
 	if (stampcode == THINK)
 		printf("%d %d is thinking\n", (cur_time.usec / 1000), philo_num);
 	if (stampcode == DEAD)
-		printf("%d %d is thinking\n", (cur_time.usec / 1000), philo_num);
+		printf("%d %d died\n", (cur_time.usec / 1000), philo_num);
 }
