@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:43:58 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 12:17:18 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:47:09 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,34 @@ int	check_any_deaths(t_philo *philo)
 
 void	print_timestamp(int philo_id, int stampcode)
 {
+	size_t cur_time;
+
+	cur_time = get_current_time();
+	if (stampcode == FORK)
+		printf("%ld %d has taken a fork\n", cur_time, philo_id);
+	if (stampcode == EAT)
+		printf("%ld %d is eating\n", cur_time, philo_id);
+	if (stampcode == SLEEP)
+		printf("%ld %d is sleeping\n", cur_time, philo_id);
+	if (stampcode == THINK)
+		printf("%ld %d is thinking\n", cur_time, philo_id);
+	if (stampcode == DEAD)
+		printf("%ld %d died\n", cur_time, philo_id);
+}
+
+/*void	print_timestamp(int philo_id, int stampcode)
+{
 	t_times	cur_time;
 
 	gettimeofday(&cur_time, 0);
 	if (stampcode == FORK)
-		printf("%d %d has taken a fork\n", (cur_time.usec / 1000), philo_id);
+		printf("%ld %d has taken a fork\n", (cur_time.usec / 1000), philo_id);
 	if (stampcode == EAT)
-		printf("%d %d is eating\n", (cur_time.usec / 1000), philo_id);
+		printf("%ld %d is eating\n", (cur_time.usec / 1000), philo_id);
 	if (stampcode == SLEEP)
-		printf("%d %d is sleeping\n", (cur_time.usec / 1000), philo_id);
+		printf("%ld %d is sleeping\n", (cur_time.usec / 1000), philo_id);
 	if (stampcode == THINK)
-		printf("%d %d is thinking\n", (cur_time.usec / 1000), philo_id);
+		printf("%ld %d is thinking\n", (cur_time.usec / 1000), philo_id);
 	if (stampcode == DEAD)
-		printf("%d %d died\n", (cur_time.usec / 1000), philo_id);
-}
+		printf("%ld %d died\n", (cur_time.usec / 1000), philo_id);
+}*/

@@ -6,13 +6,15 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:45:46 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/15 16:49:06 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:04:15 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
 
-void	init_data(t_data *data, int *nums, int ac, t_philo *philos)
+static void	setup_philo(t_data *data, t_philo *philo, int i);
+
+void	init_data(t_data *data, int *nums, int ac)
 {
 	data->dead_flag = 0;
 	data->philo_count = nums[0];
@@ -29,23 +31,24 @@ void	init_data(t_data *data, int *nums, int ac, t_philo *philos)
 	pthread_mutex_init(&data->e_lock, NULL);
 }
 
-void init_philos(t_data *data, t_philo *philos)
+void	init_philos(t_data *data, t_philo **philos)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->philo_count)
 	{
-		setup_philo(data, &philos[i], i);
-		pthread_mutex_init(&philos[i].fork_r, NULL);
-		if (i = 0)
-			philos[i].fork_l = pthread_mutex_init(&philos[data->philo_count - 1].fork_l, NULL);
+		setup_philo(data, philos[i], i);
+		pthread_mutex_init(&philos[i]->fork_r, NULL);
+		if (i == 0)
+			philos[i]->fork_l = philos[data->philo_count - 1]->fork_l;
 		else
-			philos[i].fork_l = pthread_mutex_init(&philos[i - 1].fork_l, NULL);
+			philos[i]->fork_l = philos[i - 1]->fork_l;
 		i++;
 	}
 }
-void	setup_philo(t_data *data, t_philo *philo, int i)
+
+static void	setup_philo(t_data *data, t_philo *philo, int i)
 {
 	philo->id = i + 1;
 	philo->eating = 0;
@@ -62,5 +65,4 @@ void	setup_philo(t_data *data, t_philo *philo, int i)
 	philo->w_lock = &data->w_lock;
 	philo->d_lock = &data->d_lock;
 	philo->e_lock = &data->e_lock;
-	
 }

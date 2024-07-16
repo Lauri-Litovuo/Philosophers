@@ -6,20 +6,19 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:18:37 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 10:17:03 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:43:49 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
 
-int	join_threads(t_data *data, t_philo *philos, pthread_t *waiter)
+static int	join_threads(t_data *data, t_philo *philos, pthread_t *waiter)
 {
-	int i;
-	int ret;
+	int	i;
+	int	ret;
 
-	
 	i = 0;
-	if (pthread_join(&waiter, NULL) != 0)
+	if (pthread_join(*waiter, NULL) != 0)
 		return (-1);
 	while (i < data->philo_count)
 	{
@@ -38,7 +37,7 @@ void	*routine(void *ptr)
 	philo = (t_philo *)ptr;
 	if (philo->id % 2 == 0)
 		usleep(500);
-	while (!check_any_deaths(philo))
+	while (check_any_deaths(philo) == 0)
 	{
 		philo_eat(philo);
 		philo_sleep(philo);
@@ -56,19 +55,14 @@ int	start_routines(t_data *data, t_philo *philos)
 	i = 0;
 	if (pthread_create(&waiter, NULL, &monitor, philos) != 0)
 		return (-1); //errfree
-	while(i < data->philo_count)
+	while (i < data->philo_count)
 	{
 		ret = pthread_create(&philos[i].thread, NULL, &routine, NULL);
 		if (ret != 0)
 			return (-1); //errmsg
 		i++;
 	}
-	if (join_threads(data, philos, waiter) != 0)
-	{
-		destroy_all(data, philos);
+	if (join_threads(data, philos, &waiter) != 0)
 		return (1);
-	}
 	return (0);
 }
-
-
