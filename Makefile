@@ -14,7 +14,7 @@ all: $(NAME)
 
 CC = cc
 CFLAGS += -Wall -Wextra -Werror -pthread -I$I
-LDFLAGS += 
+LDFLAGS +=
 
 ######################
 ##		MANDATORY 	##
@@ -24,6 +24,13 @@ SRC = \
 		$Smain.c \
 		$Serrors.c \
 		$Scheck_and_alloc_input.c \
+		$Sdestroy_functions.c \
+		$Seat_think_sleep.c \
+		$Sinit_struct.c \
+		$Smonitoring.c \
+		$Sroutine_start.c \
+		$Stime_functions.c \
+		$Sutils.c
 
 OBJ = $(SRC:$S%=$O%.o)
 
@@ -69,7 +76,7 @@ cleanobjdir: cleanobj
 clean: cleanobjdir
 	@echo "Cleaning object files"
 
-fclean: clean 
+fclean: clean
 	@rm -f $(NAME)
 	@echo "Project file removed"
 
