@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:43:58 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 11:29:01 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:17:18 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ int	check_any_deaths(t_philo *philo)
 	return (0);
 }
 
-void	print_timestamp(int philo_num, int stampcode)
+void	print_timestamp(int philo_id, int stampcode)
 {
 	t_times	cur_time;
 
 	gettimeofday(&cur_time, 0);
 	if (stampcode == FORK)
-		printf("%d %d has taken a fork\n", (cur_time.usec / 1000), philo_num);
+		printf("%d %d has taken a fork\n", (cur_time.usec / 1000), philo_id);
 	if (stampcode == EAT)
-		printf("%d %d is eating\n", (cur_time.usec / 1000), philo_num);
+		printf("%d %d is eating\n", (cur_time.usec / 1000), philo_id);
 	if (stampcode == SLEEP)
-		printf("%d %d is sleeping\n", (cur_time.usec / 1000), philo_num);
+		printf("%d %d is sleeping\n", (cur_time.usec / 1000), philo_id);
 	if (stampcode == THINK)
-		printf("%d %d is thinking\n", (cur_time.usec / 1000), philo_num);
+		printf("%d %d is thinking\n", (cur_time.usec / 1000), philo_id);
 	if (stampcode == DEAD)
-		printf("%d %d died\n", (cur_time.usec / 1000), philo_num);
+		printf("%d %d died\n", (cur_time.usec / 1000), philo_id);
 }

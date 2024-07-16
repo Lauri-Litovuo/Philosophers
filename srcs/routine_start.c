@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:18:37 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/15 17:33:18 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 10:17:03 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	join_threads(t_data *data, t_philo *philos, pthread_t *waiter)
 		ret = pthread_join(philos[i].thread, NULL);
 		if (ret != 0)
 			return (-1);
+		i++;
 	}
 	return (0);
 }

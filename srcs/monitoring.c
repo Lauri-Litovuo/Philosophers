@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:44:09 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 11:44:24 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:05:42 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void *monitor(void	*ptr)
 static int check_if_dead_for_hunger(t_philo *philo, size_t time_to_die)
 {
 	pthread_mutex_lock(philo->e_lock);
-	if (get_current_time() - philo->last_meal > philo->time_to_die)
+	if (get_current_time() - philo->last_meal > philo->time_to_die
+	&& philo->eating != 1)
 	{
 		pthread_mutex_lock(philo->e_lock);
 		return (1);
