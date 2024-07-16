@@ -6,13 +6,11 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 21:04:26 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/15 17:24:50 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 10:16:27 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
-
-
 
 int	main(int ac, char **av)
 {
