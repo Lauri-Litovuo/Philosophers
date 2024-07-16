@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:59:19 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/15 17:21:55 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:17:27 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_data
 int		*validate_and_alloc_input(int ac, char **av);
 void	input_error_msg(int errcode);
 void	init_data(t_data *data, int *nums);
-void	print_timestamp(int philo_num, int stampcode);
+void	print_timestamp(int philo_id, int stampcode);
 void	ft_sleep(int time_in_ms);
 size_t	get_current_time(void);
 void 	init_philos(t_data *data, t_philo *philos);
