@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:59:19 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 12:17:27 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:52:38 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,27 @@ typedef struct s_data
 }		t_data;
 
 int		*validate_and_alloc_input(int ac, char **av);
+
 void	input_error_msg(int errcode);
-void	init_data(t_data *data, int *nums);
-void	print_timestamp(int philo_id, int stampcode);
-void	ft_sleep(int time_in_ms);
-size_t	get_current_time(void);
-void 	init_philos(t_data *data, t_philo *philos);
+
+void	init_data(t_data *data, int *nums, int ac);
+void	init_philos(t_data *data, t_philo **philos);
+
 void	*monitor(void	*ptr);
+
+int	check_any_deaths(t_philo *philo);
+void	print_timestamp(int philo_id, int stampcode);
+
+void	ft_sleep(size_t time_in_ms, t_philo *philo);
+size_t	get_current_time(void);
+
+int		start_routines(t_data *data, t_philo *philos);
+
+void	free_and_destroy_all(t_data *data, t_philo *philo);
+void	free_and_destroy_len(t_data *data, t_philo *philo, int len);
+
+void	philo_eat(t_philo *philo);
+void	philo_think(t_philo *philo);
+void	philo_sleep(t_philo *philo);
 
 #endif
