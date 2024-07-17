@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:51:34 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 15:50:37 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:54:24 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,34 @@
 void	philo_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->fork_r);
-	print_timestamp(philo->id, FORK);
+	print_timestamp(philo, FORK);
 	if (philo->philo_count == 1)
 	{
-		ft_sleep(philo->time_to_die, philo);
+		ft_sleep(philo->time_to_die * 2, philo);
+		pthread_mutex_unlock(&philo->fork_r);
 		return ;
 	}
 	pthread_mutex_lock(philo->fork_l);
-	print_timestamp(philo->id, FORK);
-	pthread_mutex_lock(philo->e_lock);
-	print_timestamp(philo->id, EAT);
+	print_timestamp(philo, FORK);
+	print_timestamp(philo, EAT);
 	philo->eating = 1;
-	ft_sleep(philo->time_to_eat, philo);
+	pthread_mutex_lock(philo->e_lock);
+	philo->last_meal = get_current_time();
+	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->e_lock);
+	ft_sleep(philo->time_to_eat, philo);
 	philo->eating = 0;
-	pthread_mutex_unlock(&philo->fork_r);
 	pthread_mutex_unlock(philo->fork_l);
+	pthread_mutex_unlock(&philo->fork_r);
 }
 
 void	philo_think(t_philo *philo)
 {
-	print_timestamp(philo->id, THINK);
+	print_timestamp(philo, THINK);
 }
 
 void	philo_sleep(t_philo *philo)
 {
-	print_timestamp(philo->id, SLEEP);
+	print_timestamp(philo, SLEEP);
 	ft_sleep(philo->time_to_sleep, philo);
 }

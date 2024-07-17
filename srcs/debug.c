@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 21:04:26 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/17 16:42:45 by llitovuo         ###   ########.fr       */
+/*   Created: 2024/07/17 09:46:35 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/07/17 09:56:19 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
 
-int	main(int ac, char **av)
+void print_data(t_data *data)
 {
-	t_data	data;
-	int		*nums;
-	t_philo	*philos;
+	printf("dead_flag: %d\n", data->dead_flag);
+	printf("philo_count: %d\n", data->philo_count);
+	printf("time to die:%zu\n", data->time_to_die);
+	printf("time to eat: %zu\n", data->time_to_eat);
+	printf("time to sleep: %zu\n", data->time_to_sleep);
+	printf("max meals: %d\n", data->max_meals);
+}
 
-	if (ac < 5 || ac > 6)
+void print_nums(int *nums, int ac)
+{
+	int	i;
+
+	i = 0;
+	while (i < ac - 1)
 	{
-		input_error_msg(COUNT);
-		return (1);
+		printf("num%d %d\n", i, nums[i]);
+		i++;
 	}
-	nums = validate_and_alloc_input(ac, av);
-	if (!nums)
-		return (1);
-	if (init_data(&data, ac, av) != 0)
-		return (free(nums), 1);
-	free(nums);
-	if (init_philos(&data, &philos) != 0)
-		return (1);
-	if (start_routines(&data, philos) != 0)
-		return (1);
-	free_and_destroy_all(&data, philos);
-	return (0);
 }

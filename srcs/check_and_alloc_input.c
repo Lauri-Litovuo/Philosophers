@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 09:56:16 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/15 10:39:40 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:49:17 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,30 @@ static int	ft_isdigit(int c);
 
 int	*validate_and_alloc_input(int ac, char **av)
 {
-	int	*data;
+	int	*nums;
 	int	i;
 
-	data = NULL;
+	nums = NULL;
 	if (check_for_digits(ac, av) != 0)
 	{
 		input_error_msg(NOTDIGIT);
 		return (NULL);
 	}
-	data = (int *) malloc (ac * sizeof(int));
-	if (!data)
+	nums = (int *) malloc (ac * sizeof(int));
+	if (!nums)
 		return (NULL);
 	i = 0;
 	while (i < ac)
 	{
-		data[i] = args_to_ints(av[i + 1]);
-		if (data[i] == 0)
+		nums[i] = args_to_ints(av[i + 1]);
+		if (nums[i] == 0)
 		{
 			input_error_msg(ZERO);
-			return (free(data), NULL);
+			return (free(nums), NULL);
 		}
 		i++;
 	}
-	data[i] = 0;
-	return (data);
+	return (nums);
 }
 
 static int	check_for_digits(int ac, char **av)
@@ -56,6 +55,8 @@ static int	check_for_digits(int ac, char **av)
 	while (i < ac - 1)
 	{
 		j = 0;
+		if (av [i + 1][j] == '\0')
+			return (NOTDIGIT);
 		while (j < (int)ft_strlen(av[i + 1]))
 		{
 			if (ft_isdigit(av[i + 1][j]) == 0)

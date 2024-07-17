@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:44:09 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 15:23:25 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:05:16 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static int	check_if_dead_for_hunger(t_philo *philo)
 	if (get_current_time() - philo->last_meal > philo->time_to_die
 		&& philo->eating != 1)
 	{
-		pthread_mutex_lock(philo->e_lock);
+		pthread_mutex_unlock(philo->e_lock);
 		return (1);
 	}
-	pthread_mutex_lock(philo->e_lock);
+	pthread_mutex_unlock(philo->e_lock);
 	return (0);
 }
 
@@ -50,12 +50,10 @@ static int	monitor_deaths(t_philo *philos)
 	{
 		if (check_if_dead_for_hunger(&philos[i]) > 0)
 		{
-			pthread_mutex_lock(philos[i].w_lock);
-			print_timestamp(philos[i].id, DEAD);
-			pthread_mutex_unlock(philos[i].w_lock);
-			pthread_mutex_lock(philos[i].d_lock);
+			print_timestamp(philos, DEAD);
+			pthread_mutex_lock(philos[0].d_lock);
 			*philos[0].philo_dead = 1;
-			pthread_mutex_unlock(philos[i].d_lock);
+			pthread_mutex_unlock(philos[0].d_lock);
 			return (1);
 		}
 		i++;
@@ -84,9 +82,9 @@ static int	check_meals_eaten(t_philo *philos)
 	}
 	if (dined_philo_count >= philo_count)
 	{
-		pthread_mutex_lock(philos[i].d_lock);
+		pthread_mutex_lock(philos[0].d_lock);
 		*philos[0].philo_dead = 1;
-		pthread_mutex_unlock(philos[i].d_lock);
+		pthread_mutex_unlock(philos[0].d_lock);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:28:21 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 14:47:09 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:54:33 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	free_and_destroy_all(t_data *data, t_philo *philo)
 	while (i < data->philo_count)
 	{
 		pthread_mutex_destroy(&philo[i].fork_r);
-		free(&philo[i]);
 		i++;
 	}
 	free (philo);
@@ -31,10 +30,9 @@ void	free_and_destroy_all(t_data *data, t_philo *philo)
 
 void	free_and_destroy_len(t_data *data, t_philo *philo, int len)
 {
-	while (len > 0)
+	while (len >= 0)
 	{
 		pthread_mutex_destroy(&philo[len].fork_r);
-		free(&philo[len]);
 		len--;
 	}
 	free (philo);
@@ -42,4 +40,3 @@ void	free_and_destroy_len(t_data *data, t_philo *philo, int len)
 	pthread_mutex_destroy(&data->d_lock);
 	pthread_mutex_destroy(&data->e_lock);
 }
-

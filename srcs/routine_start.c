@@ -6,29 +6,11 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:18:37 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 15:43:49 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:52:46 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
-
-static int	join_threads(t_data *data, t_philo *philos, pthread_t *waiter)
-{
-	int	i;
-	int	ret;
-
-	i = 0;
-	if (pthread_join(*waiter, NULL) != 0)
-		return (-1);
-	while (i < data->philo_count)
-	{
-		ret = pthread_join(philos[i].thread, NULL);
-		if (ret != 0)
-			return (-1);
-		i++;
-	}
-	return (0);
-}
 
 void	*routine(void *ptr)
 {
@@ -36,7 +18,10 @@ void	*routine(void *ptr)
 
 	philo = (t_philo *)ptr;
 	if (philo->id % 2 == 0)
-		usleep(500);
+	{
+		philo_think(philo);
+		ft_sleep(philo->time_to_eat / 2, philo);
+	}
 	while (check_any_deaths(philo) == 0)
 	{
 		philo_eat(philo);
@@ -49,20 +34,25 @@ void	*routine(void *ptr)
 int	start_routines(t_data *data, t_philo *philos)
 {
 	int			i;
-	int			ret;
 	pthread_t	waiter;
 
 	i = 0;
 	if (pthread_create(&waiter, NULL, &monitor, philos) != 0)
-		return (-1); //errfree
+		return (create_error(data, philos, -1));
 	while (i < data->philo_count)
 	{
-		ret = pthread_create(&philos[i].thread, NULL, &routine, NULL);
-		if (ret != 0)
-			return (-1); //errmsg
+		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i]) != 0)
+			return (create_error(data, philos, i));
 		i++;
 	}
-	if (join_threads(data, philos, &waiter) != 0)
-		return (1);
+	if (pthread_join(waiter, NULL) != 0)
+		return (join_error(data, philos, data->philo_count - 1));
+	i--;
+	while (i >= 0)
+	{
+		if (pthread_join(philos[i].thread, NULL) != 0)
+			return (join_error(data, philos, i));
+		i--;
+	}
 	return (0);
 }
