@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:59:19 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/16 15:52:38 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:53:56 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef enum e_state
 {
@@ -78,14 +79,19 @@ typedef struct s_data
 int		*validate_and_alloc_input(int ac, char **av);
 
 void	input_error_msg(int errcode);
+int		mutex_error(char *str, int errcode, t_data *data);
+int		thread_mutex_error(t_data *data, t_philo **philos, int i);
+int		join_error(t_data *data, t_philo *philos, int i);
+int		create_error(t_data *data, t_philo *philos, int i);
 
-void	init_data(t_data *data, int *nums, int ac);
-void	init_philos(t_data *data, t_philo **philos);
+int		init_data(t_data *data, int ac, char **av);
+int		init_philos(t_data *data, t_philo **philos);
 
 void	*monitor(void	*ptr);
 
-int	check_any_deaths(t_philo *philo);
-void	print_timestamp(int philo_id, int stampcode);
+int		check_any_deaths(t_philo *philo);
+void	print_timestamp(t_philo *philo, int stampcode);
+int		ft_atoi(const char *str);
 
 void	ft_sleep(size_t time_in_ms, t_philo *philo);
 size_t	get_current_time(void);
