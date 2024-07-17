@@ -13,7 +13,7 @@ all: $(NAME)
 .PHONY: all clean fclean re
 
 CC = cc
-CFLAGS += -Wall -Wextra -Werror -pthread -I$I
+CFLAGS += -fsanitize=address -g -Wall -Wextra -Werror -pthread -I$I
 LDFLAGS +=
 
 ######################
